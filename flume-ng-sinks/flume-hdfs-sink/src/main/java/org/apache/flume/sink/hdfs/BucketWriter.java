@@ -56,7 +56,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * This class does file rolling and handles file formats and serialization.
  * Only the public methods in this class are thread safe.
  */
-class BucketWriter {
+public class BucketWriter {
 
   private static final Logger LOG = LoggerFactory
       .getLogger(BucketWriter.class);
@@ -115,7 +115,7 @@ class BucketWriter {
   protected boolean closed = false;
   AtomicInteger renameTries = new AtomicInteger(0);
 
-  BucketWriter(long rollInterval, long rollSize, long rollCount, long batchSize,
+  protected BucketWriter(long rollInterval, long rollSize, long rollCount, long batchSize,
       Context context, String filePath, String fileName, String inUsePrefix,
       String inUseSuffix, String fileSuffix, CompressionCodec codeC,
       CompressionType compType, HDFSWriter writer,
@@ -135,7 +135,7 @@ class BucketWriter {
             maxCloseTries, new SystemClock());
   }
 
-  BucketWriter(long rollInterval, long rollSize, long rollCount, long batchSize,
+  protected BucketWriter(long rollInterval, long rollSize, long rollCount, long batchSize,
            Context context, String filePath, String fileName, String inUsePrefix,
            String inUseSuffix, String fileSuffix, CompressionCodec codeC,
            CompressionType compType, HDFSWriter writer,
@@ -542,7 +542,7 @@ class BucketWriter {
     }
 
     // check if it's time to rotate the file
-    if (shouldRotate()) {
+    if (shouldRotate(event)) {
       boolean doRotate = true;
 
       if (isUnderReplicated) {
@@ -604,7 +604,7 @@ class BucketWriter {
   /**
    * check if time to rotate the file
    */
-  private boolean shouldRotate() {
+  protected boolean shouldRotate() {
     boolean doRotate = false;
 
     if (writer.isUnderReplicated()) {
@@ -625,6 +625,15 @@ class BucketWriter {
     }
 
     return doRotate;
+  }
+
+  /**
+   * Check to rotate based on information in event.
+   * @param event
+   * @return
+   */
+  protected boolean shouldRotate(Event event) {
+    return shouldRotate();
   }
 
   /**

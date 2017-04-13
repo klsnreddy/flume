@@ -455,7 +455,7 @@ public class HDFSEventSink extends AbstractSink implements Configurable {
     }
   }
 
-  private BucketWriter initializeBucketWriter(String realPath,
+  protected BucketWriter initializeBucketWriter(String realPath,
       String realName, String lookupPath, HDFSWriter hdfsWriter,
       WriterCallback closeCallback) {
     BucketWriter bucketWriter = new BucketWriter(rollInterval,
@@ -553,7 +553,85 @@ public class HDFSEventSink extends AbstractSink implements Configurable {
   }
 
   @VisibleForTesting
-  int getTryCount() {
+  protected int getTryCount() {
     return tryCount;
   }
+
+  protected long getRollInterval() {
+    return rollInterval;
+  }
+
+  protected long getRollSize() {
+    return rollSize;
+  }
+
+  protected long getRollCount() {
+    return rollCount;
+  }
+
+  protected long getBatchSize() {
+    return batchSize;
+  }
+
+  protected int getThreadsPoolSize() {
+    return threadsPoolSize;
+  }
+
+  protected int getRollTimerPoolSize() {
+    return rollTimerPoolSize;
+  }
+
+  protected CompressionCodec getCodeC() {
+    return codeC;
+  }
+
+  protected CompressionType getCompType() {
+    return compType;
+  }
+
+  protected String getSuffix() {
+    return suffix;
+  }
+
+  protected String getInUsePrefix() {
+    return inUsePrefix;
+  }
+
+  protected String getInUseSuffix() {
+    return inUseSuffix;
+  }
+
+  protected Context getContext() {
+    return context;
+  }
+
+  protected ScheduledExecutorService getTimedRollerPool() {
+    return timedRollerPool;
+  }
+
+  protected PrivilegedExecutor getPrivExecutor() {
+    return privExecutor;
+  }
+
+  protected SinkCounter getSinkCounter() {
+    return sinkCounter;
+  }
+
+  protected int getIdleTimeout() {
+    return idleTimeout;
+  }
+
+  protected ExecutorService getCallTimeoutPool() {
+    return callTimeoutPool;
+  }
+
+  protected long getCallTimeout() {
+    return callTimeout;
+  }
+
+  protected long getRetryInterval() {
+    return retryInterval;
+  }
+
+
 }

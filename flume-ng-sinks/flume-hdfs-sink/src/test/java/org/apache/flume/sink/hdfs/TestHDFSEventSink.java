@@ -78,7 +78,7 @@ public class TestHDFSEventSink {
   private HDFSEventSink sink;
   private String testPath;
   private static final Logger LOG = LoggerFactory
-      .getLogger(HDFSEventSink.class);
+      .getLogger(TestHDFSEventSink.class);
 
   static {
     System.setProperty("java.security.krb5.realm", "flume");
